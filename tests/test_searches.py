@@ -41,6 +41,11 @@ class TestBinarySearch(TestSearchBase):
     def setUp(self):
         self.func = binsearch
 
+
+class TestRecBinarySearch(TestSearchBase):
+    def setUp(self):
+        self.func = rebinsearch
+
 # Solution provided by Wojciech B. at https://stackoverflow.com/questions/1323455/python-unit-test-with-base-and-sub-class
 # Works like magic!
 del(TestSearchBase)
