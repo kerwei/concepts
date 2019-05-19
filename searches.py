@@ -1,20 +1,22 @@
+from operator import itemgetter
+import random
+
+
 # Binary search
 def binsearch(arr, ele):
     if not arr:
         return None
     elif len(arr) == 1:
-        return 0 if ele == arr[0] else None
+        return arr[0][0] if ele == arr[0][1] else None
     else:
-        arr = sorted(arr)
-
-    rindex = 0
+        arr_tuple = [(i, a) for i, a in enumerate(arr)]
+        arr = sorted(arr_tuple, key=itemgetter(1))
 
     while len(arr) > 0:
         mid = len(arr)//2
-        if arr[mid] == ele:
-            return rindex + mid
-        elif ele > arr[mid]:
-            rindex += mid + 1    # +1 for zero-indexed
+        if arr[mid][1] == ele:
+            return arr[mid][0]
+        elif ele > arr[mid][1]:
             arr = arr[mid+1:]
         else:
             arr = arr[:mid]
@@ -40,7 +42,9 @@ def rebinsearch(arr, ele, ridx=0):
 
 
 if __name__ == '__main__':
-    arr = list(range(10))
+    random.seed(a=1)
+    arr = list(random.choices(range(20), k=10))
+    print(arr)
     ele = 8
 
-    print(rebinsearch(arr, ele))
+    print(binsearch(arr, ele))
