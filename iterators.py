@@ -3,6 +3,9 @@ Simple class to count from zero to N
 """
 class count_to(object):
     def __init__(self, nber):
+        if nber < 0:
+            raise ValueError('count_to argument must be a positive integer')
+
         self.nber = nber
 
     def __iter__(self):
@@ -15,9 +18,7 @@ class count_to_iter(object):
         self.current_nber = 0
 
     def __next__(self):
-        if self.stopat < 0:
-            raise ValueError
-        elif self.current_nber > self.stopat:
+        if self.current_nber > self.stopat:
             raise StopIteration
 
         self.current_nber += 1

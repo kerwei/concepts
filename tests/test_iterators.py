@@ -13,8 +13,6 @@ class TestBaseIterators(unittest.TestCase):
         output = [x for x in iterators.count_to(0)]
         self.assertEqual(output, [0])
 
-    # Can't get the negative test right yet. It returns None instead of raising a ValueError
-    # Calling iterators.py directly and execute main successfully raised a ValueError however
     def test_negative(self):
         with self.assertRaises(ValueError): iterators.count_to(-1)
 
