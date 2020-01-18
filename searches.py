@@ -28,6 +28,7 @@ def rebinsearch(arr, ele, rec=False):
     if not arr:
         return None
 
+    # Subsequent recursive calls do not need this
     if not rec:
         arr = [(i, a) for i, a in enumerate(arr)]
         arr = sorted(arr, key=itemgetter(1))
