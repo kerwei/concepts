@@ -36,6 +36,10 @@ class TestSearchBase(unittest.TestCase):
         ele = 8
         self.assertEqual(self.func(self.arr, ele), 8)
 
+    def test_single_found(self):
+        ele = 0
+        self.assertEqual(self.func(self.arr[:1], ele), 0)
+
 
 class TestBinarySearch(TestSearchBase):
     def setUp(self):
