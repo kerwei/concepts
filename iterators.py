@@ -1,13 +1,14 @@
 import itertools
 import random
 
+from collections import deque
 from operator import itemgetter
 
 
 """
 Simple class to count from zero to N
 """
-from typing import Any, Iterator, List, Mapping, TypedDict
+from typing import Any, Iterable, Iterator, List, Mapping, TypedDict
 
 
 class count_to(object):
@@ -66,22 +67,41 @@ def aggregate_dict_by_key(data: Iterator[DataRow]) -> List[DataRow]:
     return results
 
 
+def moving_average(iterable: Iterable[int], n: int=3) -> Iterator[float]:
+    # moving_average([40, 30, 50, 46, 39, 44]) --> 40.0 42.0 45.0 43.0
+    # http://en.wikipedia.org/wiki/Moving_average
+    it = iter(iterable)
+    d = deque(itertools.islice(it, n-1))
+    breakpoint()
+    d.appendleft(0)
+    s = sum(d)
+    for elem in it:
+        s += elem - d.popleft()
+        d.append(elem)
+        yield s / n
+
+
 if __name__ == '__main__':
     # for x in count_to(-1):
     #     print(x)
 
     length = 10
-    inputdata = (
-        DataRow(
-            color = color,
-            item = item,
-            price = price,
-            unit = unit
-        ) for color, item, price, unit in zip(
-            itertools.cycle(['blue', 'red', 'yellow']),
-            itertools.cycle(['circle', 'square']),
-            (random.uniform(1.0, 100.0) for i in range(length)),
-            (random.randrange(1, 5) for i in range(length)),
-    ))
+    # inputdata = (
+    #     DataRow(
+    #         color = color,
+    #         item = item,
+    #         price = price,
+    #         unit = unit
+    #     ) for color, item, price, unit in zip(
+    #         itertools.cycle(['blue', 'red', 'yellow']),
+    #         itertools.cycle(['circle', 'square']),
+    #         (random.uniform(1.0, 100.0) for i in range(length)),
+    #         (random.randrange(1, 5) for i in range(length)),
+    # ))
 
-    print(aggregate_dict_by_key(inputdata))
+    # print(aggregate_dict_by_key(inputdata))
+
+    nbrs = [random.randrange(1,101) for _ in range(length)]
+    print(nbrs)
+
+    print([x for x in moving_average(nbrs)])
